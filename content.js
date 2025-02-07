@@ -373,7 +373,10 @@ function processInline(text) {
   const originalContentMap = new Map();
 
   document.querySelectorAll('.chat-txt, .file-caption').forEach(el => {
-    originalContentMap.set(el, el.innerHTML);
+    const chtElement = el.closest('.cht');
+    if (chtElement && chtElement.id) {
+      originalContentMap.set(chtElement.id, el.innerHTML);
+    }
     formatChatMessage(el);
   });
 
@@ -382,11 +385,17 @@ function processInline(text) {
       mutation.addedNodes.forEach(node => {
         if (node.nodeType === Node.ELEMENT_NODE) {
           if ((node.matches('.chat-txt') || node.matches('.file-caption')) && !node.dataset.formatted) {
-            originalContentMap.set(node, node.innerHTML);
+            const chtElement = node.closest('.cht');
+            if (chtElement && chtElement.id) {
+              originalContentMap.set(chtElement.id, node.innerHTML);
+            }
             formatChatMessage(node);
           } else {
             node.querySelectorAll('.chat-txt, .file-caption').forEach(el => {
-              originalContentMap.set(el, el.innerHTML);
+              const chtElement = el.closest('.cht');
+              if (chtElement && chtElement.id) {
+                originalContentMap.set(chtElement.id, el.innerHTML);
+              }
               formatChatMessage(el);
             });
           }
@@ -394,8 +403,8 @@ function processInline(text) {
       });
       mutation.target.querySelectorAll('.chat-txt.deleted, .file-caption.deleted').forEach(deletedNode => {
         const chtElement = deletedNode.closest('.cht');
-        if (chtElement) {
-          const originalContent = originalContentMap.get(deletedNode);
+        if (chtElement && chtElement.id) {
+          const originalContent = originalContentMap.get(chtElement.id);
           if (originalContent) {
             let attempts = 0;
             const intervalId = setInterval(() => {
