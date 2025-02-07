@@ -164,7 +164,7 @@ function processInline(text) {
   
   // Plain links
   text = text.replace(/((?:https?:\/\/)[^\s<]+)/g, function(match) {
-    if (match.includes('%%LINK%%')) {
+    if (/\[([^\]]+)\]\(([^)]+)\)/.test(text) || /<((?:https?:\/\/)[^>]+)>/.test(text)) {
       return match;
     }
     return '<a href="' + match + '" rel="noopener noreferrer">' + match + '</a>';
