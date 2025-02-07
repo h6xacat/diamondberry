@@ -163,8 +163,20 @@ function processInline(text) {
   text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" rel="noopener noreferrer">$1</a>');
   text = text.replace(/<((?:https?:\/\/)[^>]+)>/g, '<a href="$1" rel="noopener noreferrer">$1</a>');
   
+  // Marker for masked and unembeddable links to avoid breaking plain links
+  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '%%LINK%%<a href="$2" rel="noopener noreferrer">$1</a>%%LINK%%');
+  text = text.replace(/<((?:https?:\/\/)[^>]+)>/g, '%%LINK%%<a href="$1" rel="noopener noreferrer">$1</a>%%LINK%%');
+  
   // Plain links
-  text = text.replace(/((?:https?:\/\/)[^\s<]+)/g, '<a href="$1" rel="noopener noreferrer">$1</a>');
+  text = text.replace(/((?:https?:\/\/)[^\s<]+)/g, function(match) {
+    if (match.includes('%%LINK%%')) {
+      return match;
+    }
+    return '<a href="' + match + '" rel="noopener noreferrer">' + match + '</a>';
+  });
+  
+  // Remove markers
+  text = text.replace(/%%LINK%%/g, '');
   
   // Spoiler tags
   text = text.replace(/\|\|([\s\S]+?)\|\|/g, '<span class="spoiler">$1</span>');
