@@ -160,8 +160,14 @@ function processInline(text) {
   text = text.replace(/~~([\s\S]+?)~~/g, '<del>$1</del>');
   
   // Links (masked and unembeddable)
-  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-  text = text.replace(/<((?:https?:\/\/)[^>]+)>/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" rel="noopener noreferrer">$1</a>');
+  text = text.replace(/<((?:https?:\/\/)[^>]+)>/g, '<a href="$1" rel="noopener noreferrer">$1</a>');
+  
+  // Plain links
+  text = text.replace(/((?:https?:\/\/)[^\s<]+)/g, '<a href="$1" rel="noopener noreferrer">$1</a>');
+  
+  // Domain detection
+  text = text.replace(/(?:https?:\/\/)?(?:www\.)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})(?:\/[^\s]*)?/g, '<a href="http://$1" rel="noopener noreferrer">$1</a>');
   
   // Spoiler tags
   text = text.replace(/\|\|([\s\S]+?)\|\|/g, '<span class="spoiler">$1</span>');
