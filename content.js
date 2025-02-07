@@ -397,10 +397,18 @@ function processInline(text) {
         if (chtElement) {
           const originalContent = originalContentMap.get(deletedNode);
           if (originalContent) {
-            deletedNode.innerHTML = originalContent;
-            deletedNode.style.color = 'red';
-            deletedNode.style.fontWeight = 'bold';
-            deletedNode.classList.remove('deleted');
+            let attempts = 0;
+            const intervalId = setInterval(() => {
+              if (attempts < 6) {
+                deletedNode.innerHTML = originalContent;
+                deletedNode.style.color = 'red';
+                deletedNode.style.fontWeight = 'bold';
+                deletedNode.classList.remove('deleted');
+                attempts++;
+              } else {
+                clearInterval(intervalId);
+              }
+            }, 500);
           } else {
             chtElement.style.display = 'none';
           }
