@@ -372,6 +372,12 @@ function processInline(text) {
           }
         }
       });
+      mutation.target.querySelectorAll('.chat-txt.deleted').forEach(deletedNode => {
+        const chtElement = deletedNode.closest('.cht');
+        if (chtElement) {
+          chtElement.style.display = 'none';
+        }
+      });
     });
   });
   observer.observe(document.body, { childList: true, subtree: true });
