@@ -158,12 +158,7 @@ function processInline(text) {
   
   // Strikethrough
   text = text.replace(/~~([\s\S]+?)~~/g, '<del>$1</del>');
-  
   // Links (masked and unembeddable)
-  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" rel="noopener noreferrer">$1</a>');
-  text = text.replace(/<((?:https?:\/\/)[^>]+)>/g, '<a href="$1" rel="noopener noreferrer">$1</a>');
-  
-  // Marker for masked and unembeddable links to avoid breaking plain links
   text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '%%LINK%%<a href="$2" rel="noopener noreferrer">$1</a>%%LINK%%');
   text = text.replace(/<((?:https?:\/\/)[^>]+)>/g, '%%LINK%%<a href="$1" rel="noopener noreferrer">$1</a>%%LINK%%');
   
