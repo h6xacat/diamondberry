@@ -370,25 +370,56 @@ function processInline(text) {
   }
   
   /***** INITIALIZATION & OBSERVER *****/
-  document.querySelectorAll('.chat-txt, .file-caption').forEach(formatChatMessage);
+  const isMod = document.querySelector('#is_mod').value === "1";
+  const originalContentMap = new Map();
+
+  document.querySelectorAll('.chat-txt, .file-caption').forEach(el => {
+    if (isMod) {
+      console.log(el.innerText);
+      originalContentMap.set(el, el.innerHTML);
+    }
+    formatChatMessage(el);
+  });
+
   const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
       mutation.addedNodes.forEach(node => {
         if (node.nodeType === Node.ELEMENT_NODE) {
           if ((node.matches('.chat-txt') || node.matches('.file-caption')) && !node.dataset.formatted) {
+            if (isMod) {
+              console.log(node.innerText);
+              originalContentMap.set(node, node.innerHTML);
+            }
             formatChatMessage(node);
           } else {
-            node.querySelectorAll('.chat-txt, .file-caption').forEach(formatChatMessage);
+            node.querySelectorAll('.chat-txt, .file-caption').forEach(el => {
+              if (isMod) {
+                console.log(el.innerText);
+                originalContentMap.set(el, el.innerHTML);
+              }
+              formatChatMessage(el);
+            });
           }
         }
       });
       mutation.target.querySelectorAll('.chat-txt.deleted').forEach(deletedNode => {
         const chtElement = deletedNode.closest('.cht');
         if (chtElement) {
-          chtElement.style.display = 'none';
+          if (isMod) {
+            const originalContent = originalContentMap.get(deletedNode);
+            if (originalContent) {
+              deletedNode.innerHTML = originalContent;
+              deletedNode.style.color = 'red';
+              deletedNode.style.fontWeight = 'bold';
+              deletedNode.classList.remove('deleted');
+            }
+          } else {
+            chtElement.style.display = 'none';
+          }
         }
       });
     });
   });
+
   observer.observe(document.body, { childList: true, subtree: true });
 })(); 
