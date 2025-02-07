@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "Diamondberry",
+    "version": "1.3.6",
+    "description": "Utility for GdC.",
+    "content_scripts": [
+      {
+        "matches": ["https://chatroom.talkwithstranger.com/*"],
+        "js": ["content.js"],
+        "run_at": "document_end"
+      }
+    ],
+    "browser_specific_settings": {
+  "gecko": {
+    "id": "diamondberry@hexa.cat"
+  }
+}
+    
+  }
+  
