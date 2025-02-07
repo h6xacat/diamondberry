@@ -159,12 +159,24 @@ function processInline(text) {
   // Strikethrough
   text = text.replace(/~~([\s\S]+?)~~/g, '<del>$1</del>');
   // Links (masked and unembeddable)
-  text = text.replace(/\[([^\]]+)\]\(((?:[^()\\]|\\.)+|(?:\((?:[^()\\]|\\.)*\))*)\)/g, '%%LINK%%<a href="$2" rel="noopener noreferrer">$1</a>%%LINK%%');
-  text = text.replace(/<((?:https?:\/\/)[^<>]+)>/g, '%%LINK%%<a href="$1" rel="noopener noreferrer">$1</a>%%LINK%%');
-  
+  text = text.replace(/\[([^\]]+)\]\(((?:[^()\\]|\\.)+|(?:\((?:[^()\\]|\\.)*\))*)\)/g, function(match, p1, p2) {
+    let url = p2;
+    let nestedParentheses = /\(([^()]+)\)/g;
+    while (nestedParentheses.test(url)) {
+  text = text.replace(/(^|[^!])((?:https?:\/\/)[^\s<]+)/g, function(match, p1, p2) {
+    if (isLinkInText(text)) {
+      return match;
+    }
+    return p1 + '<a href="' + p2 + '" rel="noopener noreferrer">' + p2 + '</a>';
+  });
+  // Helper function to check if a link is already in the text
+  function isLinkInText(text) {
+    return /\[([^\]]+)\]\(([^)]+)\)/.test(text) || /<((?:https?:\/\/)[^>]+)>/.test(text) || /['"]((?:https?:\/\/)[^'"]+)['"]/.test(text);
+  }
+
   // Plain links
   text = text.replace(/((?:https?:\/\/)[^\s<]+)/g, function(match) {
-    if (/\[([^\]]+)\]\(([^)]+)\)/.test(text) || /<((?:https?:\/\/)[^>]+)>/.test(text) || /['"]((?:https?:\/\/)[^'"]+)['"]/.test(text)) {
+    if (/\[([^\]]+)\]\(([^)]+)\)/.test(match) || /<((?:https?:\/\/)[^>]+)>/.test(match) || /['"]((?:https?:\/\/)[^'"]+)['"]/.test(match)) {
       return match;
     }
     return '<a href="' + match + '" rel="noopener noreferrer">' + match + '</a>';
@@ -434,4 +446,4 @@ function processInline(text) {
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
-})(); 
+})();}})();
