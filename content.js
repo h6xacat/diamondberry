@@ -289,22 +289,33 @@ function processInline(text) {
   }
   
   /***** EMOJI WRAPPING *****/
-  const emojiRegex = /([\u{1F300}-\u{1F5FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FBA0}-\u{1FBAF}\u{1FAD0}-\u{1FADF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}])/gu;
+  const emojiRegex = /([\u{1F300}-\u{1F5FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FBA0}-\u{1FBAF}\u{1FAD0}-\u{1FADF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}]+)/gu;
   function wrapEmojisInTextNode(textNode) {
     const text = textNode.nodeValue;
     if (!emojiRegex.test(text)) return;
     emojiRegex.lastIndex = 0;
     const parts = text.split(emojiRegex);
     const fragment = document.createDocumentFragment();
+    let emojiSpan = null;
     for (const part of parts) {
       if (emojiRegex.test(part)) {
-        const span = document.createElement('span');
-        span.className = 'emoji';
-        span.textContent = part;
-        fragment.appendChild(span);
-      } else if (part) {
-        fragment.appendChild(document.createTextNode(part));
+        if (!emojiSpan) {
+          emojiSpan = document.createElement('span');
+          emojiSpan.className = 'emoji';
+        }
+        emojiSpan.textContent += part;
+      } else {
+        if (emojiSpan) {
+          fragment.appendChild(emojiSpan);
+          emojiSpan = null;
+        }
+        if (part) {
+          fragment.appendChild(document.createTextNode(part));
+        }
       }
+    }
+    if (emojiSpan) {
+      fragment.appendChild(emojiSpan);
     }
     textNode.parentNode.replaceChild(fragment, textNode);
   }
@@ -316,7 +327,6 @@ function processInline(text) {
       Array.from(node.childNodes).forEach(child => wrapEmojis(child));
     }
   }
-  
   /***** PROCESS CHAT MESSAGES *****/
   function formatChatMessage(el) {
     if (el.dataset.formatted === 'true') return;
