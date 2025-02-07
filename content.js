@@ -159,12 +159,12 @@ function processInline(text) {
   // Strikethrough
   text = text.replace(/~~([\s\S]+?)~~/g, '<del>$1</del>');
   // Links (masked and unembeddable)
-  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '%%LINK%%<a href="$2" rel="noopener noreferrer">$1</a>%%LINK%%');
-  text = text.replace(/<((?:https?:\/\/)[^>]+)>/g, '%%LINK%%<a href="$1" rel="noopener noreferrer">$1</a>%%LINK%%');
+  text = text.replace(/\[([^\]]+)\]\(((?:[^()\\]|\\.)+|(?:\((?:[^()\\]|\\.)*\))*)\)/g, '%%LINK%%<a href="$2" rel="noopener noreferrer">$1</a>%%LINK%%');
+  text = text.replace(/<((?:https?:\/\/)[^<>]+)>/g, '%%LINK%%<a href="$1" rel="noopener noreferrer">$1</a>%%LINK%%');
   
   // Plain links
   text = text.replace(/((?:https?:\/\/)[^\s<]+)/g, function(match) {
-    if (/\[([^\]]+)\]\(([^)]+)\)/.test(text) || /<((?:https?:\/\/)[^>]+)>/.test(text)) {
+    if (/\[([^\]]+)\]\(([^)]+)\)/.test(text) || /<((?:https?:\/\/)[^>]+)>/.test(text) || /['"]((?:https?:\/\/)[^'"]+)['"]/.test(text)) {
       return match;
     }
     return '<a href="' + match + '" rel="noopener noreferrer">' + match + '</a>';
