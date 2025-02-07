@@ -360,15 +360,15 @@ function processInline(text) {
   }
   
   /***** INITIALIZATION & OBSERVER *****/
-  document.querySelectorAll('.chat-txt').forEach(formatChatMessage);
+  document.querySelectorAll('.chat-txt, .file-caption').forEach(formatChatMessage);
   const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
       mutation.addedNodes.forEach(node => {
         if (node.nodeType === Node.ELEMENT_NODE) {
-          if (node.matches('.chat-txt') && !node.dataset.formatted) {
+          if ((node.matches('.chat-txt') || node.matches('.file-caption')) && !node.dataset.formatted) {
             formatChatMessage(node);
           } else {
-            node.querySelectorAll('.chat-txt').forEach(formatChatMessage);
+            node.querySelectorAll('.chat-txt, .file-caption').forEach(formatChatMessage);
           }
         }
       });
@@ -381,4 +381,4 @@ function processInline(text) {
     });
   });
   observer.observe(document.body, { childList: true, subtree: true });
-})();
+})(); 
