@@ -125,13 +125,13 @@ function protectEscapes(text) {
   // Match a backslash followed by any character.
   // Note: due to the system’s behavior, a user must type two backslashes to produce
   // a raw backslash. For example, to get a literal asterisk, type "\\*".
-  return text.replace(/\\(.)/g, function(_match, p1) {
+  return text.replace(/\\(.)/g, function(match, p1) {
     return "%%LITERAL_" + p1.charCodeAt(0) + "%%";
   });
 }
 
 function restoreEscapes(text) {
-  return text.replace(/%%LITERAL_(\d+)%%/g, function(_match, p1) {
+  return text.replace(/%%LITERAL_(\d+)%%/g, function(match, p1) {
     return String.fromCharCode(p1);
   });
 }
@@ -158,32 +158,13 @@ function processInline(text) {
   
   // Strikethrough
   text = text.replace(/~~([\s\S]+?)~~/g, '<del>$1</del>');
-  // Links (masked and unembeddable)
-  text = text.replace(/\[([^\]]+)\]\(((?:[^()\\]|\\.)+|(?:\((?:[^()\\]|\\.)*\))*)\)/g, function(match, p1, p2) {
-    let url = p2;
-    let nestedParentheses = /\(([^()]+)\)/g;
-    while (nestedParentheses.test(url)) {
-  text = text.replace(/(^|[^!])((?:https?:\/\/)[^\s<]+)/g, function(match, p1, p2) {
-    if (isLinkInText(text)) {
-      return match;
-    }
-    return p1 + '<a href="' + p2 + '" rel="noopener noreferrer">' + p2 + '</a>';
-  });
-  // Helper function to check if a link is already in the text
-  function isLinkInText(text) {
-    return /\[([^\]]+)\]\(([^)]+)\)/.test(text) || /<((?:https?:\/\/)[^>]+)>/.test(text) || /['"]((?:https?:\/\/)[^'"]+)['"]/.test(text);
-  }
-
-  // Plain links
-  text = text.replace(/((?:https?:\/\/)[^\s<]+)/g, function(match) {
-    if (/\[([^\]]+)\]\(([^)]+)\)/.test(match) || /<((?:https?:\/\/)[^>]+)>/.test(match) || /['"]((?:https?:\/\/)[^'"]+)['"]/.test(match)) {
-      return match;
-    }
-    return '<a href="' + match + '" rel="noopener noreferrer">' + match + '</a>';
-  });
   
-  // Remove markers
-  text = text.replace(/%%LINK%%/g, '');
+  // Links (masked and unembeddable)
+  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" rel="noopener noreferrer">$1</a>');
+  text = text.replace(/<((?:https?:\/\/)[^>]+)>/g, '<a href="$1" rel="noopener noreferrer">$1</a>');
+  
+  // Plain links
+  text = text.replace(/((?:https?:\/\/)[^\s<]+)/g, '<a href="$1" rel="noopener noreferrer">$1</a>');
   
   // Spoiler tags
   text = text.replace(/\|\|([\s\S]+?)\|\|/g, '<span class="spoiler">$1</span>');
@@ -389,12 +370,13 @@ function processInline(text) {
   }
   
   /***** INITIALIZATION & OBSERVER *****/
+  const isMod = document.querySelector('#is_mod').value === "1";
   const originalContentMap = new Map();
 
   document.querySelectorAll('.chat-txt, .file-caption').forEach(el => {
-    const chtElement = el.closest('.cht');
-    if (chtElement && chtElement.id) {
-      originalContentMap.set(chtElement.id, el.innerHTML);
+    if (isMod) {
+      console.log(el.innerText);
+      originalContentMap.set(el, el.innerHTML);
     }
     formatChatMessage(el);
   });
@@ -404,39 +386,33 @@ function processInline(text) {
       mutation.addedNodes.forEach(node => {
         if (node.nodeType === Node.ELEMENT_NODE) {
           if ((node.matches('.chat-txt') || node.matches('.file-caption')) && !node.dataset.formatted) {
-            const chtElement = node.closest('.cht');
-            if (chtElement && chtElement.id) {
-              originalContentMap.set(chtElement.id, node.innerHTML);
+            if (isMod) {
+              console.log(node.innerText);
+              originalContentMap.set(node, node.innerHTML);
             }
             formatChatMessage(node);
           } else {
             node.querySelectorAll('.chat-txt, .file-caption').forEach(el => {
-              const chtElement = el.closest('.cht');
-              if (chtElement && chtElement.id) {
-                originalContentMap.set(chtElement.id, el.innerHTML);
+              if (isMod) {
+                console.log(el.innerText);
+                originalContentMap.set(el, el.innerHTML);
               }
               formatChatMessage(el);
             });
           }
         }
       });
-      mutation.target.querySelectorAll('.chat-txt.deleted, .file-caption.deleted').forEach(deletedNode => {
+      mutation.target.querySelectorAll('.chat-txt.deleted').forEach(deletedNode => {
         const chtElement = deletedNode.closest('.cht');
-        if (chtElement && chtElement.id) {
-          const originalContent = originalContentMap.get(chtElement.id);
-          if (originalContent) {
-            let attempts = 0;
-            const intervalId = setInterval(() => {
-              if (attempts < 6) {
-                deletedNode.innerHTML = originalContent;
-                deletedNode.style.color = 'red';
-                deletedNode.style.fontWeight = 'bold';
-                deletedNode.classList.remove('deleted');
-                attempts++;
-              } else {
-                clearInterval(intervalId);
-              }
-            }, 500);
+        if (chtElement) {
+          if (isMod) {
+            const originalContent = originalContentMap.get(deletedNode);
+            if (originalContent) {
+              deletedNode.innerHTML = originalContent;
+              deletedNode.style.color = 'red';
+              deletedNode.style.fontWeight = 'bold';
+              deletedNode.classList.remove('deleted');
+            }
           } else {
             chtElement.style.display = 'none';
           }
@@ -446,4 +422,4 @@ function processInline(text) {
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
-})();}})();
+})(); 
