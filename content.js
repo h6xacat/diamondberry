@@ -125,13 +125,13 @@ function protectEscapes(text) {
   // Match a backslash followed by any character.
   // Note: due to the system’s behavior, a user must type two backslashes to produce
   // a raw backslash. For example, to get a literal asterisk, type "\\*".
-  return text.replace(/\\(.)/g, function(match, p1) {
+  return text.replace(/\\(.)/g, function(_match, p1) {
     return "%%LITERAL_" + p1.charCodeAt(0) + "%%";
   });
 }
 
 function restoreEscapes(text) {
-  return text.replace(/%%LITERAL_(\d+)%%/g, function(match, p1) {
+  return text.replace(/%%LITERAL_(\d+)%%/g, function(_match, p1) {
     return String.fromCharCode(p1);
   });
 }
