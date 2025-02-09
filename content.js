@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         Diamondberry
+// @namespace    https://greasyfork.org/hexa.cat
+// @version      1.A5.1
+// @description  Utility for GdC.
+// @author       hexa.cat
+// @match        https://chatroom.talkwithstranger.com/*
+// @grant        none
+// @run-at       document-end
+// @license      MPL 2.0
+// ==/UserScript==
 (function () {
   /***** IMPORT HIGHLIGHT.JS & STYLES *****/
   if (!document.querySelector('link[href*="highlight.js"]')) {
@@ -422,4 +433,80 @@ function processInline(text) {
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
+
+
+  let _messageCount = 0;
+
+  function _addMexMessage() {
+    const _chatBox = document.querySelector('.chat-box');
+    if (_chatBox) {
+      const _mexMessage = document.createElement('div');
+      _mexMessage.className = 'chat-txt mex-message';
+      _mexMessage.style.display = 'none';
+      _mexMessage.innerText = `
+      --------------------
+      This was sent with Diamondberry
+      Add it here: https://diamondberry.run
+      Note that whoever sent this doesn't see this message lol`;
+      _chatBox.appendChild(_mexMessage);
+    }
+  }
+
+  function _formatChatMessage(el) {
+    if (el.dataset.formatted === 'true') return;
+
+    // Replace <img class="emojione"> with its alt text.
+    el.querySelectorAll('img.emojione').forEach(img => {
+      const alt = img.getAttribute('alt') || '';
+      const span = document.createElement('span');
+      span.className = 'emoji';
+      span.textContent = alt;
+      img.parentNode.replaceChild(span, img);
+    });
+
+    const raw = el.innerText;
+    const html = parseMarkdown(raw);
+    el.innerHTML = html;
+
+    // Apply highlight.js to code blocks if available.
+    el.querySelectorAll('pre code').forEach(block => {
+      if (window.hljs) {
+        hljs.highlightElement(block);
+      }
+    });
+
+    wrapEmojis(el);
+    el.dataset.formatted = 'true';
+
+    // Attach copy-button functionality.
+    el.querySelectorAll('.code-copy-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const codeElem = button.parentElement.querySelector('pre code');
+        if (codeElem) {
+          const codeText = codeElem.innerText;
+          navigator.clipboard.writeText(codeText).then(() => {
+            button.innerText = 'Copied!';
+            setTimeout(() => { button.innerText = 'Copy'; }, 2000);
+          });
+        }
+      });
+    });
+
+    // Check for mex message and hide it
+    if (el.innerText.includes('mex')) {
+      el.style.display = 'none';
+    }
+  }
+
+  // Existing code...
+
+  const sendButton = document.querySelector('.btn-send');
+  if (sendButton) {
+    sendButton.addEventListener('click', function() {
+      _messageCount++;
+      if (_messageCount % 30 === 0) {
+        _addMexMessage();
+      }
+    });
+  }
 })(); 

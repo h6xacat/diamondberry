@@ -1,0 +1,9 @@
+{
+    "cleanUrls": true,
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "https://hexa.cat/db/$1"
+        }
+    ]
+}
