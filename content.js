@@ -26,7 +26,7 @@
   /***** INJECT CSS *****/
   const style = document.createElement('style');
   style.textContent = `
-    @import url(https://fonts.bunny.net/css?family=noto-color-emoji:400);
+    @import url("https://fonts.bunny.net/css?family=noto-color-emoji:400");
     
     /* Emoji */
     .emoji {
@@ -97,7 +97,6 @@
 
     /* Hide .call-alert and .toast-container */
   .call-alert { display: none !important; }
-  .toast-container { display: none !important; }
   `;
   document.head.appendChild(style);
   // Wait for the DOM to be fully loaded.
@@ -124,6 +123,23 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  const sendButton2 = document.querySelector('.btn-send');
+  if (sendButton2) {
+    sendButton2.addEventListener('click', function() {
+      messageCount++;
+      if (messageCount % 2 === 1) {
+        addMexMessage();
+      }
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    const toastContainer = event.target.closest('.toast-container');
+    if (toastContainer) {
+      toastContainer.remove();
+    }
+  });
 });
 
   
@@ -368,7 +384,8 @@ function processInline(text) {
     
     wrapEmojis(el);
     el.dataset.formatted = 'true';
-    
+  const isModElement = document.querySelector('#is_mod');
+  const isMod = isModElement && isModElement.value === "1";
     // Attach copy-button functionality.
     el.querySelectorAll('.code-copy-button').forEach(button => {
       button.addEventListener('click', function() {
@@ -494,21 +511,36 @@ function processInline(text) {
       });
     });
 
-    // Check for mex message and hide it
-    if (el.innerText.toLowerCase().includes('mex')) {
+    // Check for the specific mex message and hide it
+    const mexMessageRegex = /--------------------\nThis was sent with Diamondberry\nAdd it here: https:\/\/diamondberry\.run\nNote that whoever sent this doesn't see this message lol/;
+    if (mexMessageRegex.test(el.innerText)) {
       el.style.display = 'none';
     }
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    const sendButton = document.querySelector('.btn-send');
-    if (sendButton) {
-      sendButton.addEventListener('click', function() {
-        messageCount++;
-        if (messageCount % 2 === 1) {
-          addMexMessage();
+      const sendButton = document.querySelector('.btn-send');
+      if (sendButton) {
+        sendButton.addEventListener('click', function() {
+          messageCount++;
+          if (messageCount % 2 === 1) {
+            addMexMessage();
+          }
+        });
+      }
+  
+      document.addEventListener('click', (event) => {
+        const toastContainer = event.target.closest('.toast-container');
+        if (toastContainer) {
+          toastContainer.remove();
         }
       });
-    }
-  });
+    });
 })();
+
+
+
+// Event listener for removing toast container moved to initialization section
+
+
+
