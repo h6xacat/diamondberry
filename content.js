@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Diamondberry
 // @namespace    https://greasyfork.org/hexa.cat
-// @version      1.6.0.A---1.5.1
+// @version      1.7
 // @description  Utility for GdC.
 // @author       hexa.cat
 // @match        https://chatroom.talkwithstranger.com/*
@@ -94,6 +94,10 @@
     
     /* Subtext styling */
     .subtext { font-size: 0.9em; color: #777; margin: 0.2em 0; }
+
+    /* Hide .call-alert and .toast-container */
+  .call-alert { display: none !important; }
+  .toast-container { display: none !important; }
   `;
   document.head.appendChild(style);
   // Wait for the DOM to be fully loaded.
@@ -433,12 +437,9 @@ function processInline(text) {
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
-})();
+  let messageCount = 0;
 
-  (function () {
-  let _messageCount = 0;
-
-  function _addMexMessage() {
+  function addMexMessage() {
     const _chatBox = document.querySelector('.chat-box');
     if (_chatBox) {
       const _mexMessage = document.createElement('div');
@@ -494,18 +495,20 @@ function processInline(text) {
     });
 
     // Check for mex message and hide it
-    if (el.innerText.includes('mex')) {
+    if (el.innerText.toLowerCase().includes('mex')) {
       el.style.display = 'none';
     }
   }
 
-  const sendButton = document.querySelector('.btn-send');
-  if (sendButton) {
-    sendButton.addEventListener('click', function() {
-      _messageCount++;
-      if (_messageCount % 30 === 0) {
-        _addMexMessage();
-      }
-    });
-  }
-})(); 
+  document.addEventListener('DOMContentLoaded', function() {
+    const sendButton = document.querySelector('.btn-send');
+    if (sendButton) {
+      sendButton.addEventListener('click', function() {
+        messageCount++;
+        if (messageCount % 2 === 1) {
+          addMexMessage();
+        }
+      });
+    }
+  });
+})();
