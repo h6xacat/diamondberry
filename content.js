@@ -433,8 +433,9 @@ function processInline(text) {
   });
 
   observer.observe(document.body, { childList: true, subtree: true });
+})();
 
-
+  (function () {
   let _messageCount = 0;
 
   function _addMexMessage() {
@@ -497,8 +498,6 @@ function processInline(text) {
       el.style.display = 'none';
     }
   }
-
-  // Existing code...
 
   const sendButton = document.querySelector('.btn-send');
   if (sendButton) {
