@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Diamondberry
 // @namespace    https://greasyfork.org/hexa.cat
-// @version      1.7
+// @version      1.7.1
 // @description  Utility for GdC.
 // @author       hexa.cat
 // @match        https://chatroom.talkwithstranger.com/*
