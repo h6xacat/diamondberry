@@ -47,18 +47,18 @@ Just a code that formats Markdown in GdC and promises to do more while being tra
   <img src="https://img.shields.io/badge/Get_Firefox-orange?logo=firefox&logoColor=white" width="auto" height="50">
 </a><br>
 <a href="https://addons.mozilla.org/en-CA/firefox/addon/tampermonkey/" style="display:flex;">
-  <img src="https://img.shields.io/badge/_-orange?logo=firefox&logoColor=white" width="auto" height="50"><img src="https://img.shields.io/badge/Get_Tampermonkey-orange?logo=tampermonkey" width="auto" height="50">
+  <img src="https://img.shields.io/badge/Get_Tampermonkey-orange?logo=firefox&logoColor=white" width="auto" height="50">
 </a><br>
 <a href="https://diamondberry.run/diamondberry.user.js" style="display:flex;">
-   <img src="https://img.shields.io/badge/_-grey?logo=firefox&logoColor=white" width="auto" height="50"><img src="https://img.shields.io/badge/Tampermonkey-Install-orange?logo=tampermonkey" width="auto" height="50">
+   <img src="https://img.shields.io/badge/Tampermonkey-Install-orange?logo=firefox&logoColor=white" width="auto" height="50">
 </a>
 <br><br>
-<a href="https://play.google.com/store/apps/details?id=org.mozilla.firefox" style="display:flex;">
+<a href="https://play.google.com/store/apps/details?id=com.microsoft.emmx" style="display:flex;">
   <img src="https://img.shields.io/badge/Get_Edge-white?logo=googlechrome&logoColor=green" width="auto" height="50">
 </a><br>
-<a href="https://diamondberry.run/diamondberry.user.js" style="display:flex;">
-  <img src="https://img.shields.io/badge/_-white?logo=googlechrome&logoColor=green" width="auto" height="50"><img src="https://img.shields.io/badge/Get_Tampermonkey-orange?logo=tampermonkey" width="auto" height="50">
+<a href="https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd" style="display:flex;">
+  <img src="https://img.shields.io/badge/Get_Tampermonkey-orange?logo=googlechrome&logoColor=green" width="auto" height="50">
 </a><br>
 <a href="https://diamondberry.run/diamondberry.user.js" style="display:flex;">
-   <img src="https://img.shields.io/badge/_-grey?logo=googlechrome&logoColor=green" width="auto" height="50"><img src="https://img.shields.io/badge/Tampermonkey-Install-orange?logo=tampermonkey" width="auto" height="50">
+   <img src="https://img.shields.io/badge/Tampermonkey-Install-orange?logo=googlechrome&logoColor=green" width="auto" height="50">
 </a>
