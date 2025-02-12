@@ -3,7 +3,7 @@
 Just a code that formats Markdown in GdC and promises to do more while being transparently open source.
 <br><sub><sub><sub>(Who cares about the frickin description??)</sub></sub></sub><br>
 <img src="https://img.shields.io/badge/Javascript-black?logo=javascript" width="auto" height="50"><img src="https://img.shields.io/badge/CSS-black?logo=css" width="auto" height="50">
-# Desktop: Chrome/Firefox/<small><small>[any other Chromium-based/Firefox-based browser]</small></small>
+# Desktop: Chrome/Firefox/<sub>[any other Chromium-based/Firefox-based browser]</sub>
 <a href="https://tampermonkey.net">
   <img src="https://img.shields.io/badge/Get%20Tampermonkey-orange?logo=tampermonkey" width="auto" height="50">
 </a><br>
@@ -13,6 +13,21 @@ Just a code that formats Markdown in GdC and promises to do more while being tra
 <a href="https://greasyfork.org/fr-CA/scripts/526194-diamondberry">
   <img src="https://img.shields.io/badge/TpMk-Install_v1.7_via_Greasy_Fork-orange?logo=tampermonkey" width="auto" height="50">
 </a>
+
+### Supported browsers 
+(for reference only, open an issue if you find problems, can be updated later)
+#### Chromium-based browsers
+- Google Chrome v117.0
+- Microsoft Edge v117.0
+- Brave v1.57
+- Opera v102.0
+- Vivaldi v6.2
+
+#### Firefox-based browsers
+- Mozilla Firefox v118.0
+- LibreWolf v118.0
+- Waterfox vG5.1.10
+
 
 ## Bookmarklet
 <a href="javascript:(function(){var script = document.createElement('script');script.src = 'https://diamondberry.run/diamondberry.user.js';script.type = 'text/javascript';document.body.appendChild(script);})();">
