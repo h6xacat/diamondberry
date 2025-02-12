@@ -55,12 +55,12 @@ Just a code that formats Markdown in GdC and promises to do more while being tra
 <br><br>
 <a href="https://play.google.com/store/apps/details?id=com.microsoft.emmx" style="display:flex;">
   <img src="https://img.shields.io/badge/Get_Edge-white?logo=googlechrome&logoColor=green" width="auto" height="50">
-</a><br>
+</a>
 
-### Go to <img src="https://www.hostedredmine.com/attachments/download/205172/menu.png" alt="Menu" height="13" style="filter: drop-shadow(0 0 5px white);"> Menu and then tap on <img src="https://img.icons8.com/fluent-systems-filled/512/FFFFFF/puzzle.png" alt="Extensions" height="13" style="filter: drop-shadow(0 0 5px black);">Extensions. From there, install Tampermonkey.
+Go to <img src="https://www.hostedredmine.com/attachments/download/205172/menu.png" alt="Menu" height="15">Menu and then tap on <img src="https://i.ibb.co/dwMWRDVJ/puzzle-1.png" alt="Extensions" height="15">Extensions. From there, install Tampermonkey. **Only then**, click below to install the script.
 <!--<a href="https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd" style="display:flex;">
   <img src="https://img.shields.io/badge/Get_Tampermonkey-orange?logo=googlechrome&logoColor=green" width="auto" height="50">
-</a>--><br>
+</a>-->
 <a href="https://diamondberry.run/diamondberry.user.js" style="display:flex;">
    <img src="https://img.shields.io/badge/Tampermonkey-Install-orange?logo=googlechrome&logoColor=green" width="auto" height="50">
 </a>
