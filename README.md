@@ -1,7 +1,7 @@
 # diamondberry
 
 Just a code that formats Markdown in GdC and promises to do more while being transparently open source.
-<br><small><small><small>(Who cares about the frickin description??)</small></small></small><br>
+<br><sub><sub><sub>(Who cares about the frickin description??)</sub></sub></sub><br>
 <img src="https://img.shields.io/badge/Javascript-black?logo=javascript" width="auto" height="50"><img src="https://img.shields.io/badge/CSS-black?logo=css" width="auto" height="50">
 # Desktop: Chrome/Firefox/<small><small>[any other Chromium-based/Firefox-based browser]</small></small>
 <a href="https://tampermonkey.net">
