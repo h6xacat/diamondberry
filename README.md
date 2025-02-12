@@ -14,6 +14,7 @@ Just a code that formats Markdown in GdC and promises to do more while being tra
   <img src="https://img.shields.io/badge/TpMk-Install_v1.7_via_Greasy_Fork-orange?logo=tampermonkey" width="auto" height="50">
 </a>
 
+### **[Are you on a mobile device?](#mobile-android)**
 ### Supported browsers 
 (for reference only, open an issue if you find problems, can be updated later)
 #### Chromium-based browsers
