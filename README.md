@@ -3,6 +3,7 @@
 Just a code that formats Markdown in GdC and promises to do more while being transparently open source.
 <br><sub><sub><sub>(Who cares about the frickin description??)</sub></sub></sub><br>
 <img src="https://img.shields.io/badge/Javascript-black?logo=javascript" width="auto" height="50"><img src="https://img.shields.io/badge/CSS-black?logo=css" width="auto" height="50">
+### **[Are you on a mobile device?](#mobile-android)**
 # Desktop: Chrome/Firefox/<sub>[any other Chromium-based/Firefox-based browser]</sub>
 <a href="https://tampermonkey.net">
   <img src="https://img.shields.io/badge/Get%20Tampermonkey-orange?logo=tampermonkey" width="auto" height="50">
@@ -14,7 +15,6 @@ Just a code that formats Markdown in GdC and promises to do more while being tra
   <img src="https://img.shields.io/badge/TpMk-Install_v1.7_via_Greasy_Fork-orange?logo=tampermonkey" width="auto" height="50">
 </a>
 
-### **[Are you on a mobile device?](#mobile-android)**
 ### Supported browsers 
 (for reference only, open an issue if you find problems, can be updated later)
 #### Chromium-based browsers
