@@ -18,16 +18,16 @@ Just a code that formats Markdown in GdC and promises to do more while being tra
 ### Supported browsers 
 (for reference only, open an issue if you find problems, can be updated later)
 #### Chromium-based browsers
-- Google Chrome v117.0
-- Microsoft Edge v117.0
-- Brave v1.57
-- Opera v102.0
-- Vivaldi v6.2
+- Google Chrome v117.0+
+- Microsoft Edge v117.0+
+- Brave v1.57+
+- Opera v102.0+
+- Vivaldi v6.2+
 
 #### Firefox-based browsers
-- Mozilla Firefox v118.0
-- LibreWolf v118.0
-- Waterfox vG5.1.10
+- Mozilla Firefox v118.0+
+- LibreWolf v118.0+
+- Waterfox vG5.1.10+
 
 ### Tested on
 - [x] Windows/Chrome v133.0.6943.59
