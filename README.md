@@ -22,7 +22,7 @@ Just a code that formats Markdown in GdC and promises to do more while being tra
 # Mobile: Android
 <a href="https://play.google.com/store/apps/details?id=com.xbrowser.play">
   <img src="https://img.shields.io/badge/Get_XBrowser-blue?logo=googlechrome&logoColor=white" width="auto" height="50">
-</a>
+</a><br>
 <a href="https://diamondberry.run/diamondberry.user.js">
   <img src="https://img.shields.io/badge/Xbrowser-Install-blue?logo=googlechrome&logoColor=white" width="auto" height="50">
 </a>
