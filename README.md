@@ -29,6 +29,11 @@ Just a code that formats Markdown in GdC and promises to do more while being tra
 - LibreWolf v118.0
 - Waterfox vG5.1.10
 
+### Tested on
+- [x] Windows/Chrome v133.0.6943.59
+- [x] Windows/Opera One v116.0.5366.71
+- [x] Android/Edge v133.0.3065.54
+- [ ] other browsers (will update later)
 
 ## Bookmarklet
 <a href="javascript:(function(){var script = document.createElement('script');script.src = 'https://diamondberry.run/diamondberry.user.js';script.type = 'text/javascript';document.body.appendChild(script);})();">
@@ -64,3 +69,4 @@ Go to <img src="https://www.hostedredmine.com/attachments/download/205172/menu.p
 <a href="https://diamondberry.run/diamondberry.user.js" style="display:flex;">
    <img src="https://img.shields.io/badge/Tampermonkey-Install-orange?logo=googlechrome&logoColor=green" width="auto" height="50">
 </a>
+<br>
